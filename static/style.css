@@ -22,11 +22,30 @@
     display: inline;
   }
 
+  p{
+    padding: 0!important;
+    margin: 0!important;
+  }
   .box_icon{
     margin-left: 1em;
     margin-right: 1em;
     margin-top: 1em;
-    /* cursor: */
+    cursor: pointer;
+  }
+
+  .icons{
+    display: box;
+    width: 100%;
+    height: 30%;
+  }
+
+  .icon_box{
+    float:left;
+    margin: 5%;
+  }
+
+  .footer{
+    /* display: none; */
   }
 
   i{
