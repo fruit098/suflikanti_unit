@@ -3,6 +3,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/suflikanti_unit.iml
+.idea/workspace.xml
 # C extensions
 *.so
 .DS_Store
@@ -105,6 +110,18 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+\.DS_Store
+
+bin/
+
+Makefile
+
+pip-selfcheck\.json
+
+pyvenv\.cfg
+
+test\.mp3
 
 bin/
 
