@@ -23,5 +23,21 @@ def intro_logo_with_background(background_animation, logo):
     final_reverse = final_video.fx(vfx.time_mirror)
     return final_reverse
 
-def product_previews(products, text ):
+def product_previews(products, text_content="Realase TODAY", duration_of_product=4, font="Amiri-Bold", text_color="black"):
+    image_clips = [ImageClip(image, duration=duration_of_product) for image in products]
+
+    text_clip = TextClip(text_content, color=text_color, font=font).set_duration(duration_of_product * len(products))
+
+    clips_with_text = [
+        CompositeVideoClip([image_clip, text_clip]) for image_clip in image_clips
+    ]
+
+    clips_with_text = [clipo.set_duration(4) for clipo in clips_with_text]
+
+    final_clip = concatenate_videoclips(clips_with_text)
+
+    return final_clip
+
+
+if __name__ == '__main__':
     pass
