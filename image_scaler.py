@@ -61,5 +61,3 @@ def check_size_facebook(img):
 
     return True
 
-
-scale_images("./backgrounds")
