@@ -1,0 +1,50 @@
+import aubio
+import numpy as np
+from file_parser import create_album_record
+import sys
+
+def avg_frequence(path_to_music):
+    downsample = 1
+    samplerate = 44100 // downsample
+
+    win_s = 4096 // downsample
+    hop_s = 512 // downsample
+
+    src = aubio.source(path_to_music, samplerate, hop_s)
+    samplerate = src.samplerate
+
+    pitch_o = aubio.pitch("yinfft", win_s, hop_s, samplerate)
+    
+    total_frames = 0
+    counter = 0
+    total_pitch = 0
+
+    while True:
+        counter += 1
+        samples, read = src()
+
+        pitch = pitch_o(samples)[0]
+
+        total_frames += read
+        total_pitch += pitch
+
+        if ((total_frames / float(samplerate)) > 5.1):
+            break
+
+    return (total_pitch/counter)
+
+def set_intro_song():
+    songs = create_album_record("./music/")
+    min_density = sys.maxsize
+
+    for i in songs:
+        density = avg_frequence(i["path"])
+        if density < min_density:
+            min_density = density
+            min_song = i
+
+    print(min_density, min_song["song_name"])
+
+# avg_frequence("./test.mp3")
+
+set_intro_song()

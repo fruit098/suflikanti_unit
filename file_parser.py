@@ -21,7 +21,6 @@ def create_album_record(path_to_mp3):
 
     for mp3_file in album_music:
         mp3 = eyed3.load(mypath + mp3_file)
-
         duration = mp3.info.time_secs
         song_path = realpath(mypath + mp3_file)
 
@@ -52,5 +51,3 @@ def create_image_record(path_to_img):
     
     return final_output
 
-
-print(create_image_record("./pictures/"))

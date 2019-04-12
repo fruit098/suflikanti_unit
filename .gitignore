@@ -114,3 +114,5 @@ pip-selfcheck\.json
 pyvenv\.cfg
 
 test\.mp3
+
+Makefile
