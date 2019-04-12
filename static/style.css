@@ -26,7 +26,7 @@
     margin-left: 1em;
     margin-right: 1em;
     margin-top: 1em;
-    cursor: pointer;
+    /* cursor: */
   }
 
   i{
@@ -81,12 +81,8 @@
     font-style: normal;
     font-weight: normal;
   }
-  
-  
-  
-  
-  
-  
+
+
   /* Useless styles, just for demo styles */
   
   body {
