@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,7 +41,7 @@
             <p class="txtcenter">It's just a test, not really usable.<br />Works on IE &gt; 8 and modern browsers</p>
 
             <div class='icons''>
-                <div onclick='show_speed()' class='icon_box' style='margin-left: 24%'>
+                <div onclick='show_speed()' class='icon_box' style='margin-left: 17%'>
                     <i class="box_icon fas fa-clock fa-2x" onclick="show_time"></i>
                     <p>Speed</p>
                 </div>
@@ -61,6 +60,11 @@
                     <i class="box_icon fab fa-intercom fa-2x"></i>
                     <p>Intro/Outro</p>
                 </div>
+
+                <div onclick='show_platform()'class='icon_box'>
+                        <i class="box_icon fas fa-bullseye fa-2x"></i>
+                        <p>Platform</p>
+                    </div>
                     <!-- <li><i class="box_icon fas fa-eye fa-2x"></i></li> -->
             </div>
 
@@ -70,29 +74,41 @@
                 </div>
             
                 <div class='footer'>
-                    <div id='duration'>
-                        <ul>
-                            <li><input type='radio' name='fast' value='True'>Quick<br></li>
-                            <li><input type='radio' name='fast' value='False'>Normal<br></li>
+                    <div class='choise' id='duration'>
+                        <ul style='margin:0;padding:0;'>
+                            <li style='margin-right: 3%; display: inline-block;'><input type='radio' name='fast' value='True'>Quick<br></li>
+                            <li style='margin-right: 3%; display: inline-block;'><input type='radio' name='fast' value='False'>Normal<br></li>
                         </ul>
                     </div>
 
-                    <div id='length'>
-                        <ul>
-                            <li><input type='radio' name='duration' value='1'>One photo</li>
-                            <li><input type='radio' name='duration' value='3'>More photos</li>
+                    <div class='choise' id='length'>
+                        <ul style='margin:0;padding:0;'>
+                            <li style='margin-right: 3%; display: inline-block;'><input type='radio' name='duration' value='1'>One photo</li>
+                            <li style='margin-right: 3%; display: inline-block;'><input type='radio' name='duration' value='3'>More photos</li>
                         </ul>
                     </div>
 
-                    <div id='fonts'>
-                        <input type='radio' name='font' value='comic'><span style='font-family: "Comic Sans MS", cursive, sans-serif;'>Comic Sans</span><br>
-                        <input type='radio' name='font' value='curier'><span style='font-family: "Courier New", Courier, monospace;'>Curier</span>
-                        <input type='radio' name='font' value='arial'><span style='font-family:Arial, Helvetica, sans-serif;'>Arial</span>
+                    <div class='choise' id='fonts'>
+                        <ul style='margin:0;padding:0; text-align: center'>
+                            <li style='margin-right: 3%; display: inline-block;'><input style='float:left;' type='radio' name='font' value='comic'><span style='font-family: "Comic Sans MS", cursive, sans-serif;'>Comic Sans</span><br></li>
+                            <li style='margin-right: 3%; display: inline-block;'><input style='float:left;' type='radio' name='font' value='curier'><span style='font-family: "Courier New", Courier, monospace;'>Curier</span></li>
+                            <li style='margin-right: 3%; display: inline-block;'><input style='float:left;' type='radio' name='font' value='arial'><span style='font-family:Arial, Helvetica, sans-serif;'>Arial</span></li>
+
+                        </ul>
                     </div>
 
-                    <div class='intro_outro'>
-                        <input type='checkbox' name='intro' value='True'>Outro<br>
-                        <input type='checkbox' name='outro' value='True'>Intro<br>
+                    <div class='choise' id='intro_outro'>
+                        <ul style='margin:0;padding:0;'>
+                            <li style='margin-right: 3%; display: inline-block;'><input type='checkbox' name='intro' value='True'>Outro</li>
+                            <li style='margin-right: 3%; display: inline-block;'><input type='checkbox' name='outro' value='True'>Intro</li>
+                        </ul>
+                    </div>
+
+                    <div class='choise' id='platform'>
+                        <ul style='margin:0;padding:0;'>
+                            <li style='margin-right: 3%; display: inline-block;'><input type='radio' name='target_platform' value='fb'>Facebook</li>
+                            <li style='margin-right: 3%; display: inline-block;'><input type='radio' name='target_platform' value='ig'>Instagram</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -102,9 +118,42 @@
     </body>
 
     <script>
+        var selected_el = document.getElementById('platform');
+
         function show_fonts(){
-            document.getElementById()
+            // document.getElementById('fonts').style.display = 'block'
+            selected_el.style.display = 'none';
+            selected_el = document.getElementById('fonts');
+            selected_el.style.display = "block";
+            // console.log(elem);
         }
+
+        function show_intro(){
+            console.log(selected_el)
+            selected_el.style.display = 'none';
+            selected_el = document.getElementById('intro_outro');
+            selected_el.style.display = "block";
+        }
+
+        function show_photos(){
+            selected_el.style.display = 'none';
+            selected_el = document.getElementById('length')
+            selected_el.style.display = "block";
+
+        }
+
+        function show_platform(){
+            selected_el.style.display = 'none';
+            selected_el = document.getElementById('platform');
+            selected_el.style.display = "block";
+        }
+
+        function show_speed(){
+            selected_el.style.display = 'none';
+            selected_el = document.getElementById('duration');
+            selected_el.style.display = "block";
+        }
+
     </script>
 
 </html>

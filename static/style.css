@@ -47,7 +47,20 @@
   }
 
   .footer{
-    /* display: none; */
+    display: block;
+    width: 100%;
+    background-color: #CCB693;
+    position: fixed;
+    /* height: 10%; */
+    bottom: 0%;
+    left: 0;
+  }
+
+
+  .choise{
+    display: none;
+    font-size: 1.7em;
+    margin-left: 5%;
   }
 
   i{
