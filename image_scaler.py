@@ -1,5 +1,6 @@
 from os import listdir
 from os.path import realpath, isfile,join
+import re
 
 from PIL import Image
 
@@ -25,23 +26,25 @@ def scale_images(path_to_folder):
     folder += "/"
 
     for filename in onlyfiles:
+        if re.match(r'facebook_|instagram_', filename):
+            continue
         with open(folder + filename, "r+b") as f:
-                try:
-                    with Image.open(f) as image:
+            try:
+                with Image.open(f) as image:
 
-                        if ( check_size_facebook(image) ):
-                            facebook_cover = resizeimage.resize_cover(image, facebook_format)
-                            facebook_cover.save(folder + "facebook_" + filename, image.format)
-                        else:
-                            image.save( folder+"facebook_" + filename, image.format)
+                    if ( check_size_facebook(image) ):
+                        facebook_cover = resizeimage.resize_cover(image, facebook_format)
+                        facebook_cover.save(folder + "facebook_" + filename, image.format)
+                    else:
+                        image.save( folder+"facebook_" + filename, image.format)
 
-                        if ( check_size_instagram(image) ):
-                            instagram_cover = resizeimage.resize_cover(image, instagram_format)
-                            instagram_cover.save(folder + "instagram_" + filename, image.format)
-                        else:
-                            image.save(folder+"instagram_" + filename, image.format)
-                except OSError:
-                    pass
+                    if ( check_size_instagram(image) ):
+                        instagram_cover = resizeimage.resize_cover(image, instagram_format)
+                        instagram_cover.save(folder + "instagram_" + filename, image.format)
+                    else:
+                        image.save(folder+"instagram_" + filename, image.format)
+            except OSError:
+                pass
 
 
 def check_size_instagram(img):
@@ -58,5 +61,3 @@ def check_size_facebook(img):
 
     return True
 
-
-scale_images("./backgrounds")

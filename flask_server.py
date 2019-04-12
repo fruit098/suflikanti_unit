@@ -7,12 +7,13 @@ from main import one_on_each_other
 
 
 DIR_PATH = dirname(realpath(__file__))
-DOCUMENTS = join(DIR_PATH, 'documents/')
-STATIC_FOLDER = join(DOCUMENTS, 'static/')
-BACKGROUND_FOLDER = join(DOCUMENTS, 'backgrounds/')
-LOGOS_FOLDER = join(DOCUMENTS, 'logos/')
-VIDEOS_FOLDER = join(DOCUMENTS, 'videos/')
-SONGS_FOLDER = join(DOCUMENTS, 'songs/')
+DOCUMENTS = join(DIR_PATH, 'documents')
+STATIC_FOLDER = join(DIR_PATH, 'static')
+TEMPLATES_FOLDER = join(DIR_PATH, 'templates')
+BACKGROUND_FOLDER = join(DOCUMENTS, 'backgrounds')
+LOGOS_FOLDER = join(DOCUMENTS, 'logos')
+VIDEOS_FOLDER = join(DOCUMENTS, 'videos')
+SONGS_FOLDER = join(DOCUMENTS, 'songs')
 ALLOWED_EXTENSIONS = ('txt', "mp3", 'png', 'jpg', 'jpeg', 'gif', 'mp4')
 
 app = Flask(__name__, static_url_path=STATIC_FOLDER)
@@ -51,7 +52,6 @@ def upload_file():
 
             return "File uploaded"
     elif request.method == 'GET':
-        print("som tu")
         return render_template('index.html')
 
 
