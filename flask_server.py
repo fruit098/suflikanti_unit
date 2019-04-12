@@ -76,7 +76,6 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
     chosen_pics = validate_pics_and_choose_subset(all_files, platform_to_choose, duration)
 
     #function make intro
-
     clip = None
     if duration > 2:
         if fast:
