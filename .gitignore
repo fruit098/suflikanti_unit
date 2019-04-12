@@ -106,3 +106,13 @@ venv.bak/
 input/
 
 \.DS_Store
+
+test\.mp3
+
+bin/
+
+Makefile
+
+pip-selfcheck\.json
+
+pyvenv\.cfg
