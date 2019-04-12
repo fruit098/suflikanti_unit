@@ -56,17 +56,15 @@ def anim_pictures(pic1):
 
 
 def one_on_each_other(list):
-    imclip1 = ImageClip(list[0]).set_duration(15).crossfadein(1)
-    imclip2 = ImageClip(list[1]).set_duration(10).crossfadein(1.5)
-    imclip3 = ImageClip(list[2]).set_duration(5).crossfadein(1.5)
+    imclip1 = ImageClip(list[0]).set_duration(6).crossfadein(1)
+    imclip2 = ImageClip(list[1]).set_duration(4).crossfadein(1.5)
+    imclip3 = ImageClip(list[2]).set_duration(2).crossfadein(1.5)
 
-    #imclip1 = imclip1.set_start()
-    imclip2 = imclip2.set_start(5)
-    imclip3 = imclip3.set_start(10)
+    imclip2 = imclip2.set_start(2)
+    imclip3 = imclip3.set_start(4)
     final_clip = CompositeVideoClip([imclip1,imclip2,imclip3])
 
-    #final_clip = clips_array(list_clips)
-    final_clip.set_duration(15)
+    final_clip.set_duration(6)
 
     return final_clip
 
