@@ -49,12 +49,11 @@ def anim_pictures(pic1):
 
     new_clip = image_clip.fx(vfx.scroll, w=1280, x_speed=500)
 
-    new_clip.set_duration(float(image_clip.w - 640*2) / 500)
+    new_clip.set_duration(float(image_clip.w - 640 * 2) / 500)
     return new_clip
 
 
 def one_on_each_other(clip_list):
-
     imclips = []
     for item in clip_list:
         imclips.append(ImageClip(item).set_duration(2).crossfadein(2))
@@ -75,6 +74,14 @@ def one_on_each_other(clip_list):
     final_clip.set_duration(len(imclipsstart) * 2)
 
     return final_clip
+
+
+def logo_faid(logo):
+    image_clip = ImageClip(logo, duration=4).crossfadein(3)
+
+    final = CompositeVideoClip([image_clip])
+
+    return final
 
 
 if __name__ == '__main__':
