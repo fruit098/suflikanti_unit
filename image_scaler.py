@@ -24,6 +24,7 @@ def scale_images(path_to_folder):
     onlyfiles = [f for f in listdir(folder) if isfile(join(folder, f))]
     
     folder += "/"
+    ok_files = 0
 
     for filename in onlyfiles:
         if re.match(r'facebook_|instagram_', filename):
@@ -33,16 +34,14 @@ def scale_images(path_to_folder):
                 with Image.open(f) as image:
 
                     if ( check_size_facebook(image) ):
+                        ok_files += 1
                         facebook_cover = resizeimage.resize_cover(image, facebook_format)
                         facebook_cover.save(folder + "facebook_" + filename, image.format)
-                    else:
-                        image.save( folder+"facebook_" + filename, image.format)
 
                     if ( check_size_instagram(image) ):
+                        ok_files += 1
                         instagram_cover = resizeimage.resize_cover(image, instagram_format)
                         instagram_cover.save(folder + "instagram_" + filename, image.format)
-                    else:
-                        image.save(folder+"instagram_" + filename, image.format)
             except OSError:
                 pass
 
