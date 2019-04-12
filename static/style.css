@@ -5,6 +5,35 @@
     color:red;
   }
 
+  .side_panel {
+    position: fixed;
+    width: 5%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #CCA362;
+  }
+
+  /* .checker[type=checkbox]:checked + fab{
+    color: red;
+  } */
+
+  ul li{
+    display: inline;
+  }
+
+  .box_icon{
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-top: 1em;
+    cursor: pointer;
+  }
+
+  i{
+    display:inline;
+    float: left;
+  }
+
   .input-file-container {
     position: relative;
     width: 225px;
@@ -26,6 +55,8 @@
     padding: 14px 0;
     cursor: pointer;
   }
+
+
   .js .input-file:hover + .input-file-trigger,
   .js .input-file:focus + .input-file-trigger,
   .js .input-file-trigger:hover,
