@@ -10,7 +10,8 @@ __pycache__/
 .idea/workspace.xml
 # C extensions
 *.so
-
+.DS_Store
+.idea/
 # Distribution / packaging
 .Python
 build/
@@ -39,6 +40,8 @@ MANIFEST
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
+
+*.mp4
 
 # Unit test / coverage reports
 htmlcov/
