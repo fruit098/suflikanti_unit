@@ -3,8 +3,8 @@ from os.path import join, realpath, dirname
 from flask import Flask, flash, request, redirect, url_for, send_from_directory, render_template
 from werkzeug.utils import secure_filename
 from image_scaler import *
-from main import one_on_each_other
 from random import choice
+from transition import *
 
 DIR_PATH = dirname(realpath(__file__))
 DOCUMENTS = join(DIR_PATH, 'documents')
@@ -62,17 +62,15 @@ def test_movie():
         if file[0] != ".":
             pics_list.append(file)
 
-    clip = one_on_each_other([join(BACKGROUND_FOLDER, choice(pics_list)) for _ in range(3)])
-    clip.write_videofile("final.mp4", fps=25, codec="m")
     return send_from_directory(dirname(realpath(__file__)), "final.mp4")
 
 
 def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="IG"):
-    fast_multi_trans = []
-    slow_multi_trans = []
+    fast_multi_trans = multifast
+    slow_multi_trans = multislow
 
-    fast_one_trans = []
-    slow_one_trans = []
+    fast_one_trans = onefast
+    slow_one_trans = oneslow
 
     platform_to_choose = "instagram_" if platform == "IG" else "facebook_"
     scale_images(BACKGROUND_FOLDER)
