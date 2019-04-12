@@ -102,3 +102,15 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+\.DS_Store
+
+bin/
+
+Makefile
+
+pip-selfcheck\.json
+
+pyvenv\.cfg
+
+test\.mp3
