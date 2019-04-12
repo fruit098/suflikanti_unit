@@ -67,7 +67,7 @@ def test_movie():
     return send_from_directory(dirname(realpath(__file__)), "final.mp4")
 
 
-def movie_creation(duraton=3, fast=False, intro=False, outro=False, platform="IG"):
+def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="IG"):
     fast_multi_trans = []
     slow_multi_trans = []
 
@@ -78,12 +78,12 @@ def movie_creation(duraton=3, fast=False, intro=False, outro=False, platform="IG
     scale_images(BACKGROUND_FOLDER)
 
     all_files = os.listdir(BACKGROUND_FOLDER)
-    chosen_pics = validate_pics_and_choose_subset(all_files, platform_to_choose, duraton)
+    chosen_pics = validate_pics_and_choose_subset(all_files, platform_to_choose, duration)
 
     #function make intro
 
     clip = None
-    if duraton > 2:
+    if duration > 2:
         if fast:
             chosen_trans = choice(fast_multi_trans)
         else:
