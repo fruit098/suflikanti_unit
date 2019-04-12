@@ -45,6 +45,7 @@ def scale_images(path_to_folder):
             except OSError:
                 pass
 
+    return ok_files
 
 def check_size_instagram(img):
     size = img.size
