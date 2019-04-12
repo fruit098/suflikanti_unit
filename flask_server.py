@@ -57,12 +57,9 @@ def upload_file():
 
 @app.route('/produce_video', methods=['GET', 'POST'])
 def test_movie():
-    pics_list = []
-    for file in os.listdir(BACKGROUND_FOLDER):
-        if file[0] != ".":
-            pics_list.append(file)
-
-    return send_from_directory(dirname(realpath(__file__)), "final.mp4")
+    if request.method == 'POST':
+        clip_path = movie_creation(**request.form.to_dict)
+        return send_from_directory(dirname(realpath(__file__)), clip_path)
 
 
 def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="IG"):
@@ -98,6 +95,9 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
     if outro:
         #add outro
         pass
+    path = "final.mp4"
+    clip.write_videofile(path, fps=25)
+    return path
 
 
 def validate_pics_and_choose_subset(files, platform, duration):
