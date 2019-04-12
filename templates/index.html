@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel='stylesheet' type='text/css' href='../static/style.css'>
+        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='style.css')}}">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     </head>
@@ -72,8 +72,8 @@
                 <div class='footer'>
                     <div id='duration'>
                         <ul>
-                            <li><input type='radio' name='speed' value='quick'>Quick<br></li>
-                            <li><input type='radio' name='speed' value='normal'>Normal<br></li>
+                            <li><input type='radio' name='fast' value='True'>Quick<br></li>
+                            <li><input type='radio' name='fast' value='False'>Normal<br></li>
                         </ul>
                     </div>
 
@@ -91,8 +91,8 @@
                     </div>
 
                     <div class='intro_outro'>
-                        <input type='checkbox' name='intro' value='Intro'>Outro<br>
-                        <input type='checkbox' name='outro' value='Outro'>Intro<br>
+                        <input type='checkbox' name='intro' value='True'>Outro<br>
+                        <input type='checkbox' name='outro' value='True'>Intro<br>
                     </div>
                 </div>
 

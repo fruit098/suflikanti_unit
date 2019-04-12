@@ -3,8 +3,8 @@ from os.path import join, realpath, dirname
 from flask import Flask, flash, request, redirect, url_for, send_from_directory, render_template
 from werkzeug.utils import secure_filename
 from image_scaler import *
-from main import one_on_each_other
 from random import choice
+from transition import *
 
 DIR_PATH = dirname(realpath(__file__))
 DOCUMENTS = join(DIR_PATH, 'documents')
@@ -57,33 +57,28 @@ def upload_file():
 
 @app.route('/produce_video', methods=['GET', 'POST'])
 def test_movie():
-    pics_list = []
-    for file in os.listdir(BACKGROUND_FOLDER):
-        if file[0] != ".":
-            pics_list.append(file)
-
-    clip = one_on_each_other([join(BACKGROUND_FOLDER, choice(pics_list)) for _ in range(3)])
-    clip.write_videofile("final.mp4", fps=25, codec="m")
-    return send_from_directory(dirname(realpath(__file__)), "final.mp4")
+    if request.method == 'POST':
+        clip_path = movie_creation(**request.form.to_dict)
+        return send_from_directory(dirname(realpath(__file__)), clip_path)
 
 
-def movie_creation(duraton=3, fast=False, intro=False, outro=False, platform="IG"):
-    fast_multi_trans = []
-    slow_multi_trans = []
+def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="IG"):
+    fast_multi_trans = multifast
+    slow_multi_trans = multislow
 
-    fast_one_trans = []
-    slow_one_trans = []
+    fast_one_trans = onefast
+    slow_one_trans = oneslow
 
     platform_to_choose = "instagram_" if platform == "IG" else "facebook_"
     scale_images(BACKGROUND_FOLDER)
 
     all_files = os.listdir(BACKGROUND_FOLDER)
-    chosen_pics = validate_pics_and_choose_subset(all_files, platform_to_choose, duraton)
+    chosen_pics = validate_pics_and_choose_subset(all_files, platform_to_choose, duration)
 
     #function make intro
 
     clip = None
-    if duraton > 2:
+    if duration > 2:
         if fast:
             chosen_trans = choice(fast_multi_trans)
         else:
@@ -100,6 +95,9 @@ def movie_creation(duraton=3, fast=False, intro=False, outro=False, platform="IG
     if outro:
         #add outro
         pass
+    path = "final.mp4"
+    clip.write_videofile(path, fps=25)
+    return path
 
 
 def validate_pics_and_choose_subset(files, platform, duration):
