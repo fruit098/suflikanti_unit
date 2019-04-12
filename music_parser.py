@@ -1,6 +1,6 @@
 import eyed3
 from os import listdir
-from os.path import isfile, join
+from os.path import isfile, join, realpath
 
 ## Getting all files from folder
 def create_album_record(path_to_mp3):
@@ -18,9 +18,12 @@ def create_album_record(path_to_mp3):
         mp3 = eyed3.load(mypath + mp3_file)
 
         duration = mp3.info.time_secs
-        final_output.append({"songname" : mp3_file, "duration" : duration})
+        song_path = realpath(mypath + mp3_file)
+
+        final_output.append({"songname" : mp3_file, "duration" : duration, "path" : song_path})
 
     return final_output
 
 
 
+print(create_album_record("./music/"))
