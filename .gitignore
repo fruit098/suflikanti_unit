@@ -105,3 +105,13 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+bin/
+
+Makefile
+
+pip-selfcheck\.json
+
+pyvenv\.cfg
+
+test\.mp3
