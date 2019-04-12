@@ -9,6 +9,7 @@ instagram_format = [864,1080]
 facebook_format = [1920,1080]
 
 def scale_images(path_to_folder):
+    image_regex = r'\.jpeg|'
     """ 
         scale image for instagram and facebook
         instagram format => 864(width) : 1080(height) (4:5)
@@ -25,15 +26,22 @@ def scale_images(path_to_folder):
 
     for filename in onlyfiles:
         with open(folder + filename, "r+b") as f:
-                with Image.open(f) as image:
-                    if ( check_size_facebook(image) ):
-                        facebook_cover = resizeimage.resize_cover(image, facebook_format)
-                        facebook_cover.save(folder + "facebook_" + filename, image.format)
+                try:
+                    with Image.open(f) as image:
 
-                    if ( check_size_instagram(image) ):
-                        instagram_cover = resizeimage.resize_cover(image, instagram_format)
-                        instagram_cover.save(folder + "instagram_" + filename, image.format)
-                    
+                        if ( check_size_facebook(image) ):
+                            facebook_cover = resizeimage.resize_cover(image, facebook_format)
+                            facebook_cover.save(folder + "facebook_" + filename, image.format)
+                        else:
+                            image.save( folder+"facebook_" + filename, image.format)
+
+                        if ( check_size_instagram(image) ):
+                            instagram_cover = resizeimage.resize_cover(image, instagram_format)
+                            instagram_cover.save(folder + "instagram_" + filename, image.format)
+                        else:
+                            image.save(folder+"instagram_" + filename, image.format)
+                except OSError:
+                    pass
 
 
 def check_size_instagram(img):
@@ -49,3 +57,6 @@ def check_size_facebook(img):
         return False
 
     return True
+
+
+scale_images("./backgrounds")
