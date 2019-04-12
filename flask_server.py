@@ -51,6 +51,7 @@ def upload_file():
 
             return "File uploaded"
     elif request.method == 'GET':
+        print("som tu")
         return render_template('index.html')
 
 
