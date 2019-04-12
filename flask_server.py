@@ -1,17 +1,22 @@
 import os
 from os.path import join, realpath, dirname
-from flask import Flask, flash, request, redirect, url_for, send_from_directory
+from flask import Flask, flash, request, redirect, url_for, send_from_directory, render_template
 from werkzeug.utils import secure_filename
+from image_scaler import *
+from main import one_on_each_other
 
-HTML_FOLDER = join(dirname(realpath(__file__)), 'html/')
-BACKGROUND_FOLDER = join(dirname(realpath(__file__)), 'backgrounds/')
-LOGOS_FOLDER = join(dirname(realpath(__file__)), 'logos/')
-VIDEOS_FOLDER = join(dirname(realpath(__file__)), 'videos/')
-SONGS_FOLDER = join(dirname(realpath(__file__)), 'songs/')
+
+DIR_PATH = dirname(realpath(__file__))
+DOCUMENTS = join(DIR_PATH, 'documents/')
+STATIC_FOLDER = join(DOCUMENTS, 'static/')
+BACKGROUND_FOLDER = join(DOCUMENTS, 'backgrounds/')
+LOGOS_FOLDER = join(DOCUMENTS, 'logos/')
+VIDEOS_FOLDER = join(DOCUMENTS, 'videos/')
+SONGS_FOLDER = join(DOCUMENTS, 'songs/')
 ALLOWED_EXTENSIONS = ('txt', "mp3", 'png', 'jpg', 'jpeg', 'gif', 'mp4')
 
-app = Flask(__name__, static_url_path='/html')
-app.config['HTML_FOLDER'] = HTML_FOLDER
+app = Flask(__name__, static_url_path=STATIC_FOLDER)
+app.config['STATIC_FOLDER'] = STATIC_FOLDER
 app.config['BACKGROUNDS'] = BACKGROUND_FOLDER
 app.config['LOGOS'] = LOGOS_FOLDER
 app.config['VIDEOS'] = VIDEOS_FOLDER
@@ -40,27 +45,21 @@ def upload_file():
                     if file and allowed_file(file.filename):
                         filename = secure_filename(file.filename)
                         file.save(os.path.join(app.config[check_name.upper()], filename))
-                return redirect(url_for("uploaded_file"))
             else:
-                return send_from_directory(app.config['HTML_FOLDER'], 'index.html')
+                continue
+            scale_images(app.config['BACKGROUNDS'])
 
+            return "File uploaded"
     elif request.method == 'GET':
-        return send_from_directory(HTML_FOLDER, 'index.html')
+        print("som tu")
+        return render_template('index.html')
 
 
-@app.route('/download', methods=['GET', 'POST'])
-def download_file():
-    return send_from_directory(app.config['BACKGROUNDS'], "01.mp4")
-
-@app.route('/uploaded', methods=['GET'])
-def uploaded_file():
-    return '''
-    <html>
-    <head></head>
-    <body>
-    <title style='display:block;'>File uploaded</title></body>
-    </html>
-    '''
+@app.route('/one_on_each_other', methods=['GET'])
+def test_movie():
+    clip = one_on_each_other([os.path.join(app.config['BACKGROUNDS'], '01.jpg'), os.path.join(app.config['BACKGROUNDS'], '02.jpg'), os.path.join(app.config['BACKGROUNDS'], '03.jpg')])
+    clip.write_videofile("final.mp4", fps=25)
+    return send_from_directory(dirname(realpath(__file__)), "final.mp4")
 
 
 if __name__ == '__main__':

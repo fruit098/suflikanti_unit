@@ -47,24 +47,32 @@ def anim_pictures(pic1):
 
     image_clip = image_clip.set_duration(4)
 
-    new_clip = image_clip.fx(vfx.scroll, w=1280, x_speed=360)
+    new_clip = image_clip.fx(vfx.scroll, w=1280, x_speed=500)
 
-    new_clip2 = vfx.accel_decel(new_clip, new_duration=10)
-
-    # new_clip.set_duration(float(image_clip.w - 640*2) / 360)
-    return new_clip2
+    new_clip.set_duration(float(image_clip.w - 640*2) / 500)
+    return new_clip
 
 
-def one_on_each_other(list):
-    imclip1 = ImageClip(list[0]).set_duration(6).crossfadein(1)
-    imclip2 = ImageClip(list[1]).set_duration(4).crossfadein(1.5)
-    imclip3 = ImageClip(list[2]).set_duration(2).crossfadein(1.5)
+def one_on_each_other(clip_list):
 
-    imclip2 = imclip2.set_start(2)
-    imclip3 = imclip3.set_start(4)
-    final_clip = CompositeVideoClip([imclip1,imclip2,imclip3])
+    imclips = []
+    for item in clip_list:
+        imclips.append(ImageClip(item).set_duration(2).crossfadein(2))
 
-    final_clip.set_duration(6)
+    imclipsstart = []
+    start = 0
+    for clip in imclips:
+        if start == 0:
+            start += 2
+            imclipsstart.append(clip)
+            continue
+
+        imclipsstart.append(clip.set_start(start))
+        start += 2
+
+    final_clip = CompositeVideoClip(imclipsstart)
+
+    final_clip.set_duration(len(imclipsstart) * 2)
 
     return final_clip
 
