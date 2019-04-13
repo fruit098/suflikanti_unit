@@ -117,7 +117,7 @@ def validate_pics_and_choose_subset(files, platform, count_of_pics):
         if platform in pic and pic[0] != ".":
             valid_pics.append(pic)
 
-    if not chosen_pics:
+    if not valid_pics:
         return None
 
     for i in range(count_of_pics):
