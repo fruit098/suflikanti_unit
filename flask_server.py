@@ -67,6 +67,8 @@ def test_movie():
 
 
 def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="IG"):
+    format_for_out_input = 0 if platform == "IG" else 1
+
     count_of_pic = int(duration)
     intro = False if intro == 'False' else True
     outro = False if intro == 'False' else True
@@ -83,8 +85,6 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
     all_files = os.listdir(BACKGROUND_FOLDER)
     chosen_pics = validate_pics_and_choose_subset(all_files, platform_to_choose, count_of_pic)
 
-
-
     if not chosen_pics:
         return ''
 
@@ -97,7 +97,7 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
         chosen_background = validate_pics_and_choose_subset(all_videos, "", 1)
 
         intro_clip = intro_logo_with_background(
-            join(VIDEOS_FOLDER, chosen_background[0]), join(LOGOS_FOLDER, chosen_logo[0])
+            join(VIDEOS_FOLDER, chosen_background[0]), join(LOGOS_FOLDER, chosen_logo[0]), format_plat=format_for_out_input
         )
 
     count_of_pic = int(count_of_pic)
@@ -116,7 +116,7 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
     clip = chosen_trans(pics_with_path[0] if count_of_pic == 1 else pics_with_path)
 
     if intro:
-        clip = concatenate_videoclips([intro_clip, clip.resize(intro_clip.size)])
+        clip = concatenate_videoclips([intro_clip, clip.set_position("center", "center").resize(intro_clip.size)])
 
     if outro:
         #add outro

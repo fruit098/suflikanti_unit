@@ -6,13 +6,20 @@ import os
 from PIL import Image
 
 
-def intro_logo_with_background(background_animation, logo):
+def intro_logo_with_background(background_animation, logo, format_plat=1):
     clip = VideoFileClip(background_animation)
-    clip = clip.resize(0.5)
+    # clip = clip.resize(0.5)
     # TODO resize for platform
 
-    sub = clip.subclip(0, 5 if clip.duration > 5 else clip.duration)
+    if format_plat:
+        clip_back = ColorClip((1920, 1080),color=(0,0,0), duration=3)
+    else:
+        clip_back = ColorClip((864, 1080), color=(0, 0, 0), duration=3)
 
+    sub = clip.subclip(0, 3 if clip.duration > 3 else clip.duration)
+
+    sub = CompositeVideoClip([clip_back, sub])
+    sub = sub.subclip(0.2, -0.2)
     clip3 = sub.fx(vfx.time_mirror)
 
     final = concatenate_videoclips([sub, clip3])
@@ -20,11 +27,11 @@ def intro_logo_with_background(background_animation, logo):
     image_clip = ImageClip(logo, duration=final.duration)
     image_clip = image_clip.resize(0.3).set_position("center", "center")
 
-    final_video = CompositeVideoClip([final, image_clip.resize(lambda t: 1 + 0.1 * t)])
+    final_video = CompositeVideoClip([final.resize(clip_back.size).set_position('center', 'center'), image_clip.resize(lambda t: 1 + 0.1 * t)])
 
-    final_reverse = final_video.fx(vfx.time_mirror)
+    # final_reverse = final_video.fx(vfx.time_mirror)
 
-    return final_reverse
+    return final_video
 
 
 def product_previews(products, text_content="Realase TODAY", duration_of_product=4, font="Amiri-Bold",
