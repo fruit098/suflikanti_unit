@@ -65,5 +65,3 @@ def set_intro_song(music_folder, quick=False):
 
     return min_song
 
-
-print(set_intro_song("./music/"))

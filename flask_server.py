@@ -5,6 +5,8 @@ from werkzeug.utils import secure_filename
 from image_scaler import *
 from random import choice
 from transition import *
+from music_parser import set_intro_song
+
 
 DIR_PATH = dirname(realpath(__file__))
 DOCUMENTS = join(DIR_PATH, 'documents')
@@ -74,6 +76,9 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
     intro = False if intro == 'False' or not intro else True
     outro = False if outro == 'False' or not outro else True
 
+    music_song = set_intro_song(SONGS_FOLDER, quick=fast).get('path')
+
+
     fast_multi_trans = multifast
     slow_multi_trans = multislow
 
@@ -116,13 +121,15 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
     pics_with_path = [join(BACKGROUND_FOLDER, pic) for pic in chosen_pics]
     clip = chosen_trans(pics_with_path[0] if count_of_pic == 1 else pics_with_path)
 
+    if music_song:
+        clip = audio_to_clip(music_song, clip)
+
     if intro:
         clip = concatenate_videoclips([intro_clip, clip.set_position("center", "center").resize(intro_clip.size)])
-        clip.save_frame("debug.png", 1)
 
     if outro:
         outro = last_clip(text='texte', release_date='petke',teaser='on_sale',format=format_for_out_input, font=font)
-        clip = concatenate_videoclips([clip, outro])
+        clip = concatenate_videoclips([clip, outro.resize(clip.size)])
         #add outro
     path = "final.mp4"
     clip.write_videofile(path, fps=25)
