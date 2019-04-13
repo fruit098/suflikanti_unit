@@ -12,4 +12,3 @@ def image_to_rotate_clip(image_path):
     reverse_clip = reverse_clip.subclip(0.5, -0.5)
     to_write = mpe.concatenate_videoclips([final_clip, reverse_clip])
     return to_write
-    # to_write.write_videofile("final2.mp4", fps=25)

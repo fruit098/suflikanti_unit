@@ -14,7 +14,6 @@ def four_in_row(image):
     moving_clip.set_duration(8)
     final_clip = concatenate_videoclips([moving_clip, imclip5])
     return final_clip
-    # final_clip.write_videofile("test2.mp4", fps=25)
 
 def four_in_width(image):
     width_slice(image)
@@ -29,4 +28,3 @@ def four_in_width(image):
     moving_clip.set_duration(5)
     final_clip = concatenate_videoclips([moving_clip, imclip5])
     return final_clip
-    # final_clip.write_videofile("test1.mp4", fps=25)
