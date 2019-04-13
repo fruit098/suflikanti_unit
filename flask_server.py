@@ -51,11 +51,7 @@ def upload_file():
                         filename = secure_filename(file.filename)
                         file.save(os.path.join(app.config[check_name.upper()], filename))
             else:
-                file_list = request.files.getlist('backup' + check_name)
-                num = random.randint(0, len(file_list))
-                file = file_list[num]
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config[check_name.upper()], filename))
+                continue
 
         return "File uploaded"
     elif request.method == 'GET':
@@ -129,9 +125,6 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
 
     if intro:
         clip = concatenate_videoclips([intro_clip, clip.set_position("center", "center").resize(intro_clip.size)])
-
-    if music_song:
-        clip = audio_to_clip(music_song, clip)
 
     if outro:
         outro = last_clip(text='This is not bug', release_date='This is feature',teaser='ON SALE',format=format_for_out_input, font=font)
