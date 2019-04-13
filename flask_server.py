@@ -1,4 +1,4 @@
-import os
+import os, shutil
 from os.path import join, realpath, dirname
 from flask import Flask, flash, request, redirect, url_for, send_from_directory, render_template, send_file
 from werkzeug.utils import secure_filename
@@ -127,10 +127,11 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
     pics_with_path = [join(BACKGROUND_FOLDER, pic) for pic in chosen_pics]
     clip = chosen_trans(pics_with_path[0] if count_of_pic == 1 else pics_with_path)
 
-
-
     if intro:
         clip = concatenate_videoclips([intro_clip, clip.set_position("center", "center").resize(intro_clip.size)])
+
+    if music_song:
+        clip = audio_to_clip(music_song, clip)
 
     if outro:
         outro = last_clip(text='texte', release_date='petke',teaser='on_sale',format=format_for_out_input, font=font)
@@ -141,7 +142,25 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
         clip = audio_to_clip(music_song, clip)
     path = "final.mp4"
     clip.write_videofile(path, fps=25)
+
+    delete_old_files()
+
     return path
+
+
+def delete_old_files():
+    folder_list = ["./documents/backgrounds/","./documents/logos/","./documents/songs/","./documents/videos/"]
+
+    for folder in folder_list:
+        folder = realpath(folder)
+        for the_file in os.listdir(folder):
+            file_path = os.path.join(folder, the_file)
+            try:
+                if os.path.isfile(file_path):
+                    os.unlink(file_path)
+                #elif os.path.isdir(file_path): shutil.rmtree(file_path)
+            except Exception as e:
+                print(e)
 
 
 def validate_pics_and_choose_subset(files, platform, count_of_pics):
