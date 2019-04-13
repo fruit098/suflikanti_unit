@@ -48,7 +48,6 @@ def upload_file():
                         file.save(os.path.join(app.config[check_name.upper()], filename))
             else:
                 continue
-            scale_images(app.config['BACKGROUNDS'])
 
             return "File uploaded"
     elif request.method == 'GET':
@@ -57,11 +56,14 @@ def upload_file():
 
 @app.route('/produce_video', methods=['GET', 'POST'])
 def test_movie():
+    scale_images(app.config['BACKGROUNDS'])
     if request.method == 'POST':
         options = request.form.to_dict(flat=False)
         options = {key: options[key][0] for key in options.keys()}
         clip_path = movie_creation(**options)
-        return send_file(join(dirname(realpath(__file__)), clip_path),as_attachment=True)
+        if not clip_path:
+            return "No good images"
+        return send_file(join(dirname(realpath(__file__)), clip_path), as_attachment=True)
 
 
 def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="IG"):
@@ -81,6 +83,8 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
     all_files = os.listdir(BACKGROUND_FOLDER)
     chosen_pics = validate_pics_and_choose_subset(all_files, platform_to_choose, count_of_pic)
 
+    if not chosen_pics:
+        return ''
     #function make intro
     clip = None
     count_of_pic = int(count_of_pic)
@@ -112,6 +116,9 @@ def validate_pics_and_choose_subset(files, platform, count_of_pics):
     for pic in files:
         if platform in pic and pic[0] != ".":
             valid_pics.append(pic)
+
+    if not chosen_pics:
+        return None
 
     for i in range(count_of_pics):
         chosen_pic = (choice(valid_pics))
