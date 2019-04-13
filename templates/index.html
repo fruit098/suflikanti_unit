@@ -1,3 +1,5 @@
+<!-- href="{{ url_for('static', filename='style.css')}}" -->
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,7 +8,7 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     </head>
 
-    <body>
+    <body onload="setMargin()">
             <h1>Albumer</h1>
             <h2>Input all your album files</h2>
             
@@ -40,8 +42,8 @@
 
             <p class="txtcenter">It's just a test, not really usable.<br />Works on IE &gt; 8 and modern browsers</p>
 
-            <div class='icons'>
-                <div onclick='show_speed()' class='icon_box' style='margin-left: 24%'>
+            <div id='icon_container' class='icons'>
+                <div onclick='show_speed()' class='icon_box'>
                     <i class="box_icon fas fa-clock fa-2x" onclick="show_time"></i>
                     <p>Speed</p>
                 </div>
@@ -152,6 +154,47 @@
             selected_el.style.display = 'none';
             selected_el = document.getElementById('duration');
             selected_el.style.display = "block";
+        }
+
+        function getwidthIcons(){
+            var element = document.getElementById('icon_container');
+            b = document.getElementsByClassName('icon_box')
+            var width_boxes = 0
+            for ( i = 0; i < b.length; i++ ){
+                var element = b[i]
+                // width_boxes += b[i].offsetWidth;
+                
+                var style = element.currentStyle || window.getComputedStyle(element),
+                width = element.offsetWidth, // or use style.width
+                margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight),
+                padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight),
+                border = parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth);
+
+                width_boxes += (width + margin - padding + border);
+
+            }
+
+            return width_boxes;
+        }
+
+        function set_container(width_boxes){
+            var elem = document.getElementById('icon_container')
+            var elem_width = elem.offsetWidth
+
+
+            padding_left = elem_width - width_boxes;
+
+            console.log(padding_left + " left padding")
+            console.log(width_boxes + " boxes")
+
+            elem.style.marginLeft = padding_left / 2 + "px";
+            elem.style.marginRight = padding_left / 2 + "px";
+
+        }
+
+        function setMargin(){
+            a = getwidthIcons()
+            set_container(a)
         }
 
     </script>
