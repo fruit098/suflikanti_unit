@@ -35,13 +35,19 @@ def scale_images(path_to_folder):
 
                     if ( check_size_facebook(image) ):
                         ok_files += 1
-                        facebook_cover = resizeimage.resize_cover(image, facebook_format)
-                        facebook_cover.save(folder + "facebook_" + filename, image.format)
+                        try:
+                            facebook_cover = resizeimage.resize_cover(image, facebook_format)
+                            facebook_cover.save(folder + "facebook_" + filename, image.format)
+                        except resizeimage.ImageSizeError:
+                            image.save(folder + "facebook_" + filename, image.format)
 
                     if ( check_size_instagram(image) ):
                         ok_files += 1
-                        instagram_cover = resizeimage.resize_cover(image, instagram_format)
-                        instagram_cover.save(folder + "instagram_" + filename, image.format)
+                        try:
+                            instagram_cover = resizeimage.resize_cover(image, instagram_format)
+                            instagram_cover.save(folder + "instagram_" + filename, image.format)
+                        except resizeimage.ImageSizeError:
+                            image.save(folder + "instagram_" + filename, image.format)
             except OSError:
                 pass
 
