@@ -202,7 +202,8 @@ def audio_to_clip(audio, clip):
 
 
 def concate_two(clip1, clip2):
-    clip1 = clip1.resize(clip2.size)
+    clip2 = clip2.resize(width=1920)
+    clip1 = clip1.resize(width=1920)
     conc = CompositeVideoClip([clip1, clip2.set_start(clip1.duration)])
 
     conc = conc.set_duration(clip1.duration + clip2.duration)
