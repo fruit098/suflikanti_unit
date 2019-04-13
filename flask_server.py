@@ -71,8 +71,8 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
     font = int(font)
 
     count_of_pic = int(duration)
-    intro = False if intro == 'False' else True
-    outro = False if outro == 'False' else True
+    intro = False if intro == 'False' or not intro else True
+    outro = False if outro == 'False' or not outro else True
 
     fast_multi_trans = multifast
     slow_multi_trans = multislow

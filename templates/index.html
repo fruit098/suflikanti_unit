@@ -24,10 +24,10 @@
     <html>
         <head>
             <meta charset="UTF-8">
-            <link href='styles/index_style.css' rel='stylesheet' />          
-            <script src='addons/jquerry.js' language='javascript'></script>
-            <script src='scripts/canvas.js' language='javascript'></script>      
-            <script src='scripts/main.js' language='javascript'></script>                              
+            <link href="{{ url_for('static', filename='index_style.css') }}" rel='stylesheet' />
+            <script src="{{ url_for('static', filename='jquerry.js') }}"  language='javascript'></script>
+            <script src="{{ url_for('static', filename='canvas.js') }}" language='javascript'></script>
+            <script src="{{ url_for('static', filename='main.js') }}" language='javascript'></script>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         </head>
@@ -131,8 +131,8 @@
 
                     <div class='choise' id='intro_outro'>
                         <ul style='margin:0;padding:0;'>
-                            <li style='margin-right: 3%; display: inline-block;'><input type='checkbox' name='intro' value='True'>Outro</li>
-                            <li style='margin-right: 3%; display: inline-block;'><input type='checkbox' name='outro' value='True'>Intro</li>
+                            <li style='margin-right: 3%; display: inline-block;'><input type='checkbox' name='intro' >Outro</li>
+                            <li style='margin-right: 3%; display: inline-block;'><input type='checkbox' name='outro' >Intro</li>
                         </ul>
                     </div>
 

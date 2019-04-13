@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Pacifico');
 
-@font-face{
-    font-family: Roboto;
-    src: url('robotoMed.ttf');
-}
 
 @keyframes hideNshow {
     50%{

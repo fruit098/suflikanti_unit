@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel='stylesheet' type='text/css' href="../static/style.css">
+        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='index_style.css') }}">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     </head>
@@ -92,9 +92,9 @@
 
                     <div class='choise' id='fonts'>
                         <ul style='margin:0;padding:0; text-align: center'>
-                            <li style='margin-right: 3%; display: inline-block;'><input style='float:left;' type='radio' name='font' value='comic'><span style='font-family: "Comic Sans MS", cursive, sans-serif;'>Comic Sans</span><br></li>
-                            <li style='margin-right: 3%; display: inline-block;'><input style='float:left;' type='radio' name='font' value='curier'><span style='font-family: "Courier New", Courier, monospace;'>Curier</span></li>
-                            <li style='margin-right: 3%; display: inline-block;'><input style='float:left;' type='radio' name='font' value='arial'><span style='font-family:Arial, Helvetica, sans-serif;'>Arial</span></li>
+                            <li style='margin-right: 3%; display: inline-block;'><input style='float:left;' type='radio' name='font' value='0'><span style='font-family: "Comic Sans MS", cursive, sans-serif;'>Comic Sans</span><br></li>
+                            <li style='margin-right: 3%; display: inline-block;'><input style='float:left;' type='radio' name='font' value='1'><span style='font-family: "Courier New", Courier, monospace;'>Curier</span></li>
+                            <li style='margin-right: 3%; display: inline-block;'><input style='float:left;' type='radio' name='font' value='2'><span style='font-family:Arial, Helvetica, sans-serif;'>Arial</span></li>
 
                         </ul>
                     </div>
