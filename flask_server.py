@@ -1,6 +1,6 @@
 import os
 from os.path import join, realpath, dirname
-from flask import Flask, flash, request, redirect, url_for, send_from_directory, render_template
+from flask import Flask, flash, request, redirect, url_for, send_from_directory, render_template, send_file
 from werkzeug.utils import secure_filename
 from image_scaler import *
 from random import choice
@@ -58,11 +58,17 @@ def upload_file():
 @app.route('/produce_video', methods=['GET', 'POST'])
 def test_movie():
     if request.method == 'POST':
-        clip_path = movie_creation(**request.form.to_dict)
-        return send_from_directory(dirname(realpath(__file__)), clip_path)
+        options = request.form.to_dict(flat=False)
+        options = {key: options[key][0] for key in options.keys()}
+        clip_path = movie_creation(**options)
+        return send_file(join(dirname(realpath(__file__)), clip_path),as_attachment=True)
 
 
 def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="IG"):
+    count_of_pic = int(duration)
+    intro = False if intro == 'False' else True
+    outro = False if intro == 'False' else True
+
     fast_multi_trans = multifast
     slow_multi_trans = multislow
 
@@ -73,23 +79,24 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
     scale_images(BACKGROUND_FOLDER)
 
     all_files = os.listdir(BACKGROUND_FOLDER)
-    chosen_pics = validate_pics_and_choose_subset(all_files, platform_to_choose, duration)
+    chosen_pics = validate_pics_and_choose_subset(all_files, platform_to_choose, count_of_pic)
 
     #function make intro
     clip = None
-    if duration > 2:
+    count_of_pic = int(count_of_pic)
+    if count_of_pic > 2:
         if fast:
             chosen_trans = choice(fast_multi_trans)
         else:
             chosen_trans = choice(slow_multi_trans)
-        clip = chosen_trans()
     else:
         if fast:
             chosen_trans = choice(fast_one_trans)
         else:
             chosen_trans = choice(slow_one_trans)
 
-    clip = chosen_trans(chosen_pics)
+    pics_with_path = [join(BACKGROUND_FOLDER, pic) for pic in chosen_pics]
+    clip = chosen_trans(pics_with_path[0] if count_of_pic == 1 else pics_with_path)
 
     if outro:
         #add outro
@@ -99,17 +106,17 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
     return path
 
 
-def validate_pics_and_choose_subset(files, platform, duration):
+def validate_pics_and_choose_subset(files, platform, count_of_pics):
     valid_pics = []
     chosen_pics = []
     for pic in files:
         if platform in pic and pic[0] != ".":
             valid_pics.append(pic)
 
-    for _ in range(duration):
+    for i in range(count_of_pics):
         chosen_pic = (choice(valid_pics))
         chosen_pics.append(chosen_pic)
-        valid_pics.pop(chosen_pic)
+        valid_pics.pop(valid_pics.index(chosen_pic))
         if not valid_pics:
             return chosen_pics
 
