@@ -3,8 +3,11 @@ import aubio
 import numpy as np
 from file_parser import create_album_record
 import sys
+import time
+import os
 
-import yodel.filter
+from os import listdir
+from os.path import isfile, join
 
 def avg_frequence(path_to_music):
     downsample = 1
@@ -36,30 +39,31 @@ def avg_frequence(path_to_music):
 
     return (total_pitch/counter)
 
-def avg_bmp(music_folder):
+
+
+def set_intro_song(music_folder, quick=False):
     music_folder = realpath(music_folder)
+    music_folder += "/"
 
     songs = create_album_record(music_folder)
-    min_density = sys.maxsize
 
-    for i in songs:
-        print(i)
-
-
-
-def set_intro_song(music_folder):
-    music_folder = realpath(music_folder)
-
-    songs = create_album_record(music_folder)
-    min_density = sys.maxsize
+    if ( quick ):
+            min_density = 0
+    else:
+        min_density = sys.maxsize
 
     for i in songs:
         density = avg_frequence(i["path"])
-        if density < min_density:
-            min_density = density
-            min_song = i
+        if ( quick ):
+                if density > min_density:
+                        min_density = density
+                        min_song = i
+        else:
+                if density < min_density:
+                        min_density = density
+                        min_song = i
 
     return min_song
 
 
-avg_bmp('./music/')
+print(set_intro_song("./music/"))
