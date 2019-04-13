@@ -188,11 +188,26 @@ def generate_intro(logo):
     return final
 
 
+def audio_to_clip(audio, clip):
+    audio_clip = AudioFileClip(audio)
+    clip = clip.set_audio(audio_clip.set_duration(clip.duration))
+    clip = clip.audio_fadeout(clip.duration - 2)
+    return clip
+
+
+def concate_two(clip1, clip2):
+    clip1 = clip1.resize(clip2.size)
+    conc = CompositeVideoClip([clip1, clip2.set_start(clip1.duration)])
+
+    conc = conc.set_duration(clip1.duration + clip2.duration)
+
+    return conc
+
+
 multifast = [one_on_each_other]
 multislow = [one_on_each_other]
 onefast = [four_in_row, four_in_width]
 oneslow = [image_to_rotate_clip, anim_pictures]
-
 
 if __name__ == '__main__':
     pass
