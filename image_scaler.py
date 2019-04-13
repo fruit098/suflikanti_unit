@@ -49,15 +49,15 @@ def scale_images(path_to_folder):
 
 def check_size_instagram(img):
     size = img.size
-    if ( size[0] < instagram_format[0] or size[1] < instagram_format[1] ):
-        return False
+    if ( size[1] > size[0] ):
+        return True
 
-    return True
+    return False
 
 def check_size_facebook(img):
     size = img.size
-    if ( size[0] < facebook_format[0] or size[1] < facebook_format[1] ):
-        return False
+    if ( size[0] > size[1] ):
+        return True
 
-    return True
+    return False
 
