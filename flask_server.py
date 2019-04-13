@@ -66,12 +66,13 @@ def test_movie():
         return send_file(join(dirname(realpath(__file__)), clip_path), as_attachment=True)
 
 
-def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="IG"):
+def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="IG", font=1):
     format_for_out_input = 0 if platform == "IG" else 1
+    font = int(font)
 
     count_of_pic = int(duration)
     intro = False if intro == 'False' else True
-    outro = False if intro == 'False' else True
+    outro = False if outro == 'False' else True
 
     fast_multi_trans = multifast
     slow_multi_trans = multislow
@@ -117,10 +118,12 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
 
     if intro:
         clip = concatenate_videoclips([intro_clip, clip.set_position("center", "center").resize(intro_clip.size)])
+        clip.save_frame("debug.png", 1)
 
     if outro:
+        outro = last_clip(text='texte', release_date='petke',teaser='on_sale',format=format_for_out_input, font=font)
+        clip = concatenate_videoclips([clip, outro])
         #add outro
-        pass
     path = "final.mp4"
     clip.write_videofile(path, fps=25)
     return path

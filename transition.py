@@ -1,5 +1,6 @@
 from __future__ import division
 
+import random
 from moviepy.editor import *
 import moviepy.video.fx.all as vfx
 import os
@@ -242,7 +243,6 @@ def last_clip(text="", release_date="", teaser="", format=1, font=1):
         composite.append(buy_clip.set_start(2.5).crossfadein(1.5))
 
     final = CompositeVideoClip(composite).set_duration(7)
-    final.write_videofile("test.mp4", fps=25)
     return final
 
 
