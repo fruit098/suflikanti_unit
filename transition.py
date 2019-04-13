@@ -12,11 +12,11 @@ def intro_logo_with_background(background_animation, logo, format_plat=1):
     # TODO resize for platform
 
     if format_plat:
-        clip_back = ColorClip((1920, 1080),color=(0,0,0), duration=3)
+        clip_back = ColorClip((1920, 1080),color=(0,0,0), duration=2.5)
     else:
-        clip_back = ColorClip((864, 1080), color=(0, 0, 0), duration=3)
+        clip_back = ColorClip((864, 1080), color=(0, 0, 0), duration=2.5)
 
-    sub = clip.subclip(0, 3 if clip.duration > 3 else clip.duration)
+    sub = clip.subclip(0, 2.5 if clip.duration > 2.5 else clip.duration)
 
     sub = CompositeVideoClip([clip_back, sub])
     sub = sub.subclip(0.2, -0.2)
