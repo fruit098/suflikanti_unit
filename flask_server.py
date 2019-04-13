@@ -6,6 +6,7 @@ from image_scaler import *
 from random import choice
 from transition import *
 from music_parser import set_intro_song
+import random
 
 
 DIR_PATH = dirname(realpath(__file__))
@@ -50,7 +51,11 @@ def upload_file():
                         filename = secure_filename(file.filename)
                         file.save(os.path.join(app.config[check_name.upper()], filename))
             else:
-                continue
+                file_list = request.files.getlist('backup' + check_name)
+                num = random.randint(0, len(file_list))
+                file = file_list[num]
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config[check_name.upper()], filename))
 
         return "File uploaded"
     elif request.method == 'GET':
