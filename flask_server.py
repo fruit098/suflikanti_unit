@@ -83,10 +83,23 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
     all_files = os.listdir(BACKGROUND_FOLDER)
     chosen_pics = validate_pics_and_choose_subset(all_files, platform_to_choose, count_of_pic)
 
+
+
     if not chosen_pics:
         return ''
-    #function make intro
-    clip = None
+
+    intro_clip = None
+    if intro:
+        all_logos = os.listdir(LOGOS_FOLDER)
+        chosen_logo = validate_pics_and_choose_subset(all_logos, "", 1)
+
+        all_videos = os.listdir(VIDEOS_FOLDER)
+        chosen_background = validate_pics_and_choose_subset(all_videos, "", 1)
+
+        intro_clip = intro_logo_with_background(
+            join(VIDEOS_FOLDER, chosen_background[0]), join(LOGOS_FOLDER, chosen_logo[0])
+        )
+
     count_of_pic = int(count_of_pic)
     if count_of_pic > 2:
         if fast:
@@ -101,6 +114,9 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
 
     pics_with_path = [join(BACKGROUND_FOLDER, pic) for pic in chosen_pics]
     clip = chosen_trans(pics_with_path[0] if count_of_pic == 1 else pics_with_path)
+
+    if intro:
+        clip = concatenate_videoclips([intro_clip, clip.resize(intro_clip.size)])
 
     if outro:
         #add outro

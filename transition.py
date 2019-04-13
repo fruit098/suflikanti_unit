@@ -11,13 +11,11 @@ def intro_logo_with_background(background_animation, logo):
     clip = clip.resize(0.5)
     # TODO resize for platform
 
-    sub = clip.subclip(0, 16)
+    sub = clip.subclip(0, 5 if clip.duration > 5 else clip.duration)
 
-    clip2 = sub.speedx(final_duration=2)
+    clip3 = sub.fx(vfx.time_mirror)
 
-    clip3 = clip2.fx(vfx.time_mirror)
-
-    final = concatenate_videoclips([clip2, clip3])
+    final = concatenate_videoclips([sub, clip3])
 
     image_clip = ImageClip(logo, duration=final.duration)
     image_clip = image_clip.resize(0.3).set_position("center", "center")
