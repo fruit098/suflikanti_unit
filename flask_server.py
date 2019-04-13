@@ -129,7 +129,7 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
         clip = audio_to_clip(music_song, clip)
 
     if outro:
-        outro = last_clip(text='texte', release_date='petke',teaser='on_sale',format=format_for_out_input, font=font)
+        outro = last_clip(text='This is not bug', release_date='This is feature',teaser='ON SALE',format=format_for_out_input, font=font)
         clip = concatenate_videoclips([clip, outro.resize(clip.size)])
         #add outro
 
