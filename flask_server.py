@@ -43,15 +43,16 @@ def upload_file():
             if file_list:
                 for file in file_list:
                     if file.filename == '':
-                        flash('No selected file')
-                        return redirect(request.url)
+                        # flash('No selected file')
+                        # return redirect(request.url)
+                        continue
                     if file and allowed_file(file.filename):
                         filename = secure_filename(file.filename)
                         file.save(os.path.join(app.config[check_name.upper()], filename))
             else:
                 continue
 
-            return "File uploaded"
+        return "File uploaded"
     elif request.method == 'GET':
         return render_template('index.html')
 
@@ -131,6 +132,9 @@ def movie_creation(duration=3, fast=False, intro=False, outro=False, platform="I
         outro = last_clip(text='texte', release_date='petke',teaser='on_sale',format=format_for_out_input, font=font)
         clip = concatenate_videoclips([clip, outro.resize(clip.size)])
         #add outro
+
+    if music_song:
+        clip = audio_to_clip(music_song, clip)
     path = "final.mp4"
     clip.write_videofile(path, fps=25)
 
